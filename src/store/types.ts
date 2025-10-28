@@ -74,7 +74,6 @@ export interface UserMedication {
 }
 
 export interface CreateUserMedicationRequest {
-  medication_id: number;
   custom_name?: string;
   prescribed_dosage?: string;
   prescribed_frequency?: string;

@@ -4,10 +4,25 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Camera, FileText, Upload, X, Sparkles, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAddUserMedicationMutation } from "@/store/api/medicationsApi";
 import { useAnalyzePrescriptionMutation } from "@/store/api/aiApi";
+
+const FREQUENCY_OPTIONS = [
+  { value: "once_daily", label: "Una vez al día" },
+  { value: "twice_daily", label: "Dos veces al día" },
+  { value: "three_times_daily", label: "Tres veces al día" },
+  { value: "four_times_daily", label: "Cuatro veces al día" },
+  { value: "every_4_hours", label: "Cada 4 horas" },
+  { value: "every_6_hours", label: "Cada 6 horas" },
+  { value: "every_8_hours", label: "Cada 8 horas" },
+  { value: "every_12_hours", label: "Cada 12 horas" },
+  { value: "as_needed", label: "Según sea necesario" },
+  { value: "weekly", label: "Una vez a la semana" },
+  { value: "custom", label: "Personalizado" },
+];
 
 export const MedicationRegistry = () => {
   const { toast } = useToast();
@@ -19,6 +34,7 @@ export const MedicationRegistry = () => {
     custom_name: "",
     prescribed_dosage: "",
     prescribed_frequency: "",
+    custom_frequency: "",
     doctor_instructions: "",
     notes: "",
     start_date: new Date().toISOString().split('T')[0],
@@ -76,12 +92,20 @@ export const MedicationRegistry = () => {
       return;
     }
 
+    // Use custom frequency if "custom" is selected, otherwise use the selected preset
+    const finalFrequency = formData.prescribed_frequency === "custom" 
+      ? formData.custom_frequency 
+      : FREQUENCY_OPTIONS.find(opt => opt.value === formData.prescribed_frequency)?.label || formData.prescribed_frequency;
+
     try {
+      // Backend will automatically:
+      // 1. Search for existing medication by name
+      // 2. Create new medication if it doesn't exist
+      // 3. Link medication to user
       await addUserMedication({
-        medication_id: 1,
         custom_name: formData.custom_name,
         prescribed_dosage: formData.prescribed_dosage,
-        prescribed_frequency: formData.prescribed_frequency,
+        prescribed_frequency: finalFrequency,
         doctor_instructions: formData.doctor_instructions,
         notes: formData.notes,
         start_date: formData.start_date,
@@ -97,6 +121,7 @@ export const MedicationRegistry = () => {
         custom_name: "",
         prescribed_dosage: "",
         prescribed_frequency: "",
+        custom_frequency: "",
         doctor_instructions: "",
         notes: "",
         start_date: new Date().toISOString().split('T')[0],
@@ -167,13 +192,35 @@ export const MedicationRegistry = () => {
 
             <div>
               <Label className="text-gray-700 font-medium text-sm">Frecuencia</Label>
-              <Input
+              <Select
                 value={formData.prescribed_frequency}
-                onChange={(e) => setFormData(prev => ({ ...prev, prescribed_frequency: e.target.value }))}
-                placeholder="ej., Dos veces al día"
-                className="mt-1"
-              />
+                onValueChange={(value) => setFormData(prev => ({ ...prev, prescribed_frequency: value }))}
+              >
+                <SelectTrigger className="mt-1">
+                  <SelectValue placeholder="Selecciona la frecuencia" />
+                </SelectTrigger>
+                <SelectContent>
+                  {FREQUENCY_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
+
+            {/* Show custom frequency input if "custom" is selected */}
+            {formData.prescribed_frequency === "custom" && (
+              <div>
+                <Label className="text-gray-700 font-medium text-sm">Frecuencia Personalizada</Label>
+                <Input
+                  value={formData.custom_frequency}
+                  onChange={(e) => setFormData(prev => ({ ...prev, custom_frequency: e.target.value }))}
+                  placeholder="ej., Cada 3 días con comida"
+                  className="mt-1"
+                />
+              </div>
+            )}
 
             <div>
               <Label className="text-gray-700 font-medium text-sm">Fecha de Inicio</Label>
