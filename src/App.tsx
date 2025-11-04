@@ -11,6 +11,8 @@ import { Dashboard } from "./pages/Dashboard";
 import { NotificationCenter } from "./components/Notifications/NotificationCenter";
 import { Profile } from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import { ForgotPasswordForm } from "./components/Auth/ForgotPasswordForm";
+import { ResetPasswordForm } from "./components/Auth/ResetPasswordForm";
 
 const App = () => (
   <Provider store={store}>
@@ -22,6 +24,8 @@ const App = () => (
           {/* Public Routes */}
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
+          <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+          <Route path="/reset-password" element={<ResetPasswordForm />} />
           
           {/* Protected Routes */}
           <Route

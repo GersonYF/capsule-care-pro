@@ -2,114 +2,118 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Design system optimized for elderly users - medication tracking app
+Focus: High contrast, warm tones, accessibility, clear visual hierarchy
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 180 100% 97%;
-    --foreground: 180 10% 15%;
+    /* Fondo más cálido y suave - beige muy claro */
+    --background: 40 30% 97%;
+    --foreground: 210 15% 20%; /* Texto más oscuro para mejor contraste */
 
     --card: 0 0% 100%;
-    --card-foreground: 180 10% 15%;
+    --card-foreground: 210 15% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 180 10% 15%;
+    --popover-foreground: 210 15% 20%;
 
-    --primary: 174 70% 45%;
+    /* Azul sereno y confiable - asociado con salud y confianza */
+    --primary: 210 70% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 174 30% 85%;
-    --secondary-foreground: 180 10% 15%;
+    /* Secundario cálido y acogedor */
+    --secondary: 210 25% 88%;
+    --secondary-foreground: 210 15% 20%;
 
-    --muted: 180 20% 96%;
-    --muted-foreground: 180 10% 45%;
+    --muted: 40 20% 94%;
+    --muted-foreground: 210 10% 45%;
 
-    --accent: 174 60% 50%;
+    /* Acento en verde-azul suave para calma */
+    --accent: 200 60% 50%;
     --accent-foreground: 0 0% 100%;
 
-    --success: 142 76% 36%;
+    /* Verde éxito más saturado para mejor visibilidad */
+    --success: 140 70% 40%;
     --success-foreground: 0 0% 100%;
 
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
+    /* Amarillo-naranja para advertencias (más visible que amarillo puro) */
+    --warning: 35 90% 55%;
+    --warning-foreground: 210 15% 20%;
 
-    --destructive: 0 84.2% 60.2%;
+    /* Rojo más suave pero visible para errores */
+    --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 180 20% 90%;
-    --input: 180 20% 95%;
-    --ring: 174 70% 45%;
+    --border: 210 20% 85%;
+    --input: 40 20% 96%;
+    --ring: 210 70% 50%;
 
-    --radius: 0.75rem;
+    --radius: 0.875rem; /* Bordes ligeramente más redondeados - más amigable */
 
     /* Medical app specific colors */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(174 70% 55%));
-    --gradient-success: linear-gradient(135deg, hsl(var(--success)), hsl(142 76% 46%));
-    --shadow-soft: 0 4px 12px -4px hsl(var(--primary) / 0.1);
-    --shadow-medication: 0 2px 8px -2px hsl(var(--primary) / 0.15);
+    --gradient-primary: linear-gradient(135deg, hsl(210 70% 50%), hsl(200 65% 55%));
+    --gradient-success: linear-gradient(135deg, hsl(140 70% 40%), hsl(140 70% 50%));
+    --shadow-soft: 0 4px 16px -4px hsl(210 70% 50% / 0.12);
+    --shadow-medication: 0 3px 10px -2px hsl(210 70% 50% / 0.18);
 
-    --sidebar-background: 174 40% 96%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar en tono cálido */
+    --sidebar-background: 40 25% 95%;
+    --sidebar-foreground: 210 15% 25%;
+    --sidebar-primary: 210 70% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 40 30% 90%;
+    --sidebar-accent-foreground: 210 15% 25%;
+    --sidebar-border: 210 20% 88%;
+    --sidebar-ring: 210 70% 50%;
   }
 
   .dark {
-    --background: 180 20% 8%;
-    --foreground: 180 10% 95%;
+    /* Modo oscuro con contraste mejorado */
+    --background: 210 20% 12%;
+    --foreground: 40 10% 95%;
 
-    --card: 180 20% 10%;
-    --card-foreground: 180 10% 95%;
+    --card: 210 18% 15%;
+    --card-foreground: 40 10% 95%;
 
-    --popover: 180 20% 10%;
-    --popover-foreground: 180 10% 95%;
+    --popover: 210 18% 15%;
+    --popover-foreground: 40 10% 95%;
 
-    --primary: 174 70% 55%;
-    --primary-foreground: 180 20% 8%;
+    /* Primary más brillante en modo oscuro */
+    --primary: 210 75% 60%;
+    --primary-foreground: 210 20% 12%;
 
-    --secondary: 180 20% 15%;
-    --secondary-foreground: 180 10% 85%;
+    --secondary: 210 15% 22%;
+    --secondary-foreground: 40 10% 90%;
 
-    --muted: 180 20% 12%;
-    --muted-foreground: 180 10% 65%;
+    --muted: 210 15% 18%;
+    --muted-foreground: 210 10% 70%;
 
-    --accent: 174 60% 50%;
-    --accent-foreground: 180 10% 95%;
+    --accent: 200 65% 55%;
+    --accent-foreground: 210 20% 12%;
 
-    --success: 142 76% 46%;
-    --success-foreground: 180 20% 8%;
+    --success: 140 70% 50%;
+    --success-foreground: 210 20% 12%;
 
-    --warning: 38 92% 60%;
-    --warning-foreground: 180 20% 8%;
+    --warning: 35 90% 60%;
+    --warning-foreground: 210 20% 12%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 180 10% 95%;
+    --destructive: 0 70% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 180 20% 20%;
-    --input: 180 20% 15%;
-    --ring: 174 70% 55%;
+    --border: 210 15% 25%;
+    --input: 210 15% 18%;
+    --ring: 210 75% 60%;
     
-    --sidebar-background: 180 20% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 210 18% 14%;
+    --sidebar-foreground: 40 10% 92%;
+    --sidebar-primary: 210 75% 60%;
+    --sidebar-primary-foreground: 210 20% 12%;
+    --sidebar-accent: 210 15% 20%;
+    --sidebar-accent-foreground: 40 10% 92%;
+    --sidebar-border: 210 15% 22%;
+    --sidebar-ring: 210 75% 60%;
   }
 }
 
@@ -120,5 +124,8 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    /* Mejor legibilidad para adultos mayores */
+    font-size: 16px;
+    line-height: 1.6;
   }
 }

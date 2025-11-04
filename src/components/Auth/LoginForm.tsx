@@ -13,7 +13,7 @@ export const LoginForm = () => {
   const dispatch = useAppDispatch();
   const { toast } = useToast();
   const [login, { isLoading }] = useLoginMutation();
-  
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -21,7 +21,7 @@ export const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       const result = await login(formData).unwrap();
       dispatch(setCredentials(result));
@@ -48,40 +48,55 @@ export const LoginForm = () => {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <Label htmlFor="username" className="text-gray-700">Usuario</Label>
+          <Label htmlFor="username" className="text-gray-700">
+            Usuario
+          </Label>
           <Input
             id="username"
             type="text"
             value={formData.username}
-            onChange={(e) => setFormData(prev => ({ ...prev, username: e.target.value }))}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, username: e.target.value }))
+            }
             placeholder="Ingresa tu usuario"
             required
             className="mt-1"
           />
         </div>
-
         <div>
-          <Label htmlFor="password" className="text-gray-700">Contraseña</Label>
+          <Label htmlFor="password" className="text-gray-700">
+            Contraseña
+          </Label>
           <Input
             id="password"
             type="password"
             value={formData.password}
-            onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, password: e.target.value }))
+            }
             placeholder="Ingresa tu contraseña"
             required
             className="mt-1"
           />
         </div>
-
-        <Button 
-          type="submit" 
+        <Button
+          type="submit"
           disabled={isLoading}
           className="w-full bg-primary hover:bg-primary-dark text-white rounded-xl h-12 text-lg font-medium"
         >
           {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
         </Button>
 
-        <div className="text-center">
+        <div className="text-center space-y-2">
+          <Button
+            type="button"
+            variant="link"
+            className="text-primary text-sm"
+            onClick={() => navigate("/forgot-password")}
+          >
+            ¿Olvidaste tu contraseña?
+          </Button>
+
           <Button
             type="button"
             variant="link"
